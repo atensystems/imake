@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"
+		  layout="absolute"
+		  title="Products"
+		  backgroundAlpha="0.5">
+	<mx:HBox creationComplete="initPopup();">
+		<mx:Image id="productImage"
+				  width="35"
+				  height="35"
+				  horizontalAlign="center">
+		</mx:Image>
+		<mx:Button height="35"
+				   width="15"
+				   icon="@Embed('assets/right.png')"
+				   click="{show()}">
+		</mx:Button>
+	</mx:HBox>
+	<mx:Script>
+		<![CDATA[
+			import mx.events.ListEvent;
+			import mx.managers.PopUpManager;
+			import com.atensys.imake.draw.colors.ProductsList;
+
+			private var popup:ProductsList = new ProductsList();
+
+			private function show():void {
+				popup.x=this.localToGlobal(new Point(0, 0)).x;
+				popup.y=this.localToGlobal(new Point(0, 0)).y + this.height + 5;
+				popup.setStyle('borderStyle', 'solid');
+				popup.setStyle('borderThickness', 3);
+				popup.setStyle('cornerRadius', 5);
+				PopUpManager.addPopUp(popup, this.parent, false);
+				popup.addEventListener(FocusEvent.FOCUS_OUT, hidePopup);
+			}
+			
+			private function initPopup():void{
+//				popup.addEventListener(ListEvent.CHANGE, hidePopup);
+				popup.addEventListener(ListEvent.ITEM_CLICK, hidePopup);
+			}
+			
+			private function hidePopup(evt:Event):void{
+				PopUpManager.removePopUp(popup);
+			}
+			
+			public function getPopupList():ProductsList{
+				return this.popup;
+			}
+		]]>
+	</mx:Script>
+</mx:Panel>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ApplicationControlBar xmlns:mx="http://www.adobe.com/2006/mxml"
+						  width="100%">
+	<mx:Button icon="@Embed('assets/new_con.gif')"/>
+	<mx:ButtonBar id="saveLoad"
+				  itemClick="doSaveLoad(event)">
+		<mx:dataProvider>
+			<mx:Array>
+				<mx:Object icon="@Embed('assets/save.gif')"/>
+				<mx:Object icon="@Embed('assets/open.gif')"/>
+			</mx:Array>
+		</mx:dataProvider>
+	</mx:ButtonBar>
+
+	<mx:ButtonBar id="editButtons"
+				  creationComplete="editButtonsCreated(event)">
+		<mx:dataProvider>
+			<mx:Array>
+				<mx:Object icon="@Embed('assets/copy_edit.png')"/>
+				<mx:Object icon="@Embed('assets/cut_edit.png')"/>
+				<mx:Object icon="@Embed('assets/paste_edit.gif')"/>
+			</mx:Array>
+		</mx:dataProvider>
+	</mx:ButtonBar>
+
+	<mx:Script>
+		<![CDATA[
+			import mx.events.ItemClickEvent;
+			import mx.core.Application;
+			import mx.controls.Button;
+			import mx.events.FlexEvent;
+
+			public function editButtonsCreated(event:FlexEvent):void
+			{
+				disableEditButtons();
+			}
+
+			public function doSaveLoad(event:ItemClickEvent):void
+			{
+				if (event.index == 0)
+				{
+					Application.application.desktop.doSave();
+				}
+				else
+				{
+					Application.application.desktop.doLoad();
+				}
+			}
+
+			public function disableEditButtons():void
+			{
+				var bar:ButtonBar=this.editButtons;
+				var b:Button=bar.getChildAt(0) as Button;
+				b.enabled=false;
+				b=bar.getChildAt(1) as Button;
+				b.enabled=false;
+				b=bar.getChildAt(2) as Button;
+				b.enabled=false;
+			}
+
+			public function enableEditButtons():void
+			{
+				var bar:ButtonBar=this.editButtons;
+				var b:Button=bar.getChildAt(0) as Button;
+				b.enabled=true;
+				b=bar.getChildAt(1) as Button;
+				b.enabled=true;
+				b=bar.getChildAt(2) as Button;
+				b.enabled=true;
+			}
+
+			public function enableCopyCutButtons():void
+			{
+				var bar:ButtonBar=this.editButtons;
+				var b:Button=bar.getChildAt(0) as Button;
+				b.enabled=true;
+				b=bar.getChildAt(1) as Button;
+				b.enabled=true;
+			}
+
+			public function disableCopyCutButtons():void
+			{
+				var bar:ButtonBar=this.editButtons;
+				var b:Button=bar.getChildAt(0) as Button;
+				b.enabled=false;
+				b=bar.getChildAt(1) as Button;
+				b.enabled=false;
+			}
+
+			public function getCopyButton():Button
+			{
+				var bar:ButtonBar=this.editButtons;
+				var b:Button=bar.getChildAt(0) as Button;
+				return b;
+			}
+
+			public function getCutButton():Button
+			{
+				var bar:ButtonBar=this.editButtons;
+				var b:Button=bar.getChildAt(1) as Button;
+				return b;
+			}
+
+			public function getPasteButton():Button
+			{
+				var bar:ButtonBar=this.editButtons;
+				var b:Button=bar.getChildAt(2) as Button;
+				return b;
+			}
+		]]>
+	</mx:Script>
+</mx:ApplicationControlBar>
