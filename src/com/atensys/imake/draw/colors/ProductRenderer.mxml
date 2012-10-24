@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
-		 horizontalAlign="center"
-		 verticalAlign="middle">
-	<mx:Image source="{data.thumbnailImage}" maxWidth="50" maxHeight="50"/>
-	<mx:Label text="{data.label}" truncateToFit="true" width="50"/>
-</mx:VBox>
