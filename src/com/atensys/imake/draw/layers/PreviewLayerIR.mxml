@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--ImageRenderer.mxml-->
+<!-- This renderer displays an Image and a description -->
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" implements="mx.controls.listClasses.IDropInListItemRenderer">
+	<mx:Script>
+		<![CDATA[
+			import com.atensys.imake.draw.component.ComponentResizeContainer;
+			import com.atensys.imake.draw.component.DComponent;
+			
+			import mx.collections.ArrayCollection;
+			import mx.containers.ControlBar;
+			import mx.controls.DataGrid;
+			import mx.controls.List;
+			import mx.controls.dataGridClasses.DataGridListData;
+			import mx.controls.listClasses.BaseListData;
+			import mx.core.Application;
+			import mx.core.UIComponent;
+		
+		private var _listData:BaseListData;        
+        
+        //Define getter for the listData property
+        public function get listData() : BaseListData
+        {
+           return _listData;
+        }
+
+        //Define setter for the listData property
+        public function set listData( value:BaseListData ) : void
+        {
+           _listData = value;
+        }
+        
+        // Override the setter for data to figure out what column this itemRenderer is 
+        // representing.
+        public var _data:Object; 
+        override public function set data(value:Object):void 
+        {      
+        	this._data = value;
+        	if(checkBox!=null){
+		       checkBox.selected = _data.visible as Boolean;
+        	}        
+        }
+        
+         override public function get data():Object{
+         	return checkBox != null?_data:null;
+         }
+         
+         private function forceUpdate(evt:Event) : void
+		{
+		    // Access the collection - listData.owner is the List and from there you have its dataProvider.
+		    var ac:ArrayCollection = (listData.owner as DataGrid).dataProvider as ArrayCollection;
+		    
+		    // update the quantity field from the numeric stepper. This is what the List will automatically
+		    // do when editing completes, but since you want to see the grand total change as the NumericStepper
+		    // changes, you have to force things a bit.
+		    _data.visible = checkBox.selected;
+		    var comp:UIComponent = data.component.getController() as UIComponent;
+		    comp.visible = checkBox.selected;
+		    // finally, tell the collection the data changed. this will cause the collection to
+		    // dispatch its own change event which is then picked up by the main application.
+		    ac.itemUpdated(data);
+		}
+		 ]]>
+	</mx:Script>
+	
+	<mx:CheckBox id="checkBox" horizontalCenter="0" verticalCenter="0" change="forceUpdate(event)" />
+	
+</mx:Canvas>

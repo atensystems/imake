@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				paddingTop="0"
+				paddingLeft="0"
+				paddingRight="0"
+				paddingBottom="0"
+				xmlns:draw="com.atensys.imake.draw.*"
+				horizontalScrollPolicy="off"
+				verticalScrollPolicy="off"
+				applicationComplete="applicationComplete(event)"
+				xmlns:layers="com.atensys.imake.draw.layers.*"
+				xmlns:colors="com.atensys.imake.draw.colors.*"
+				xmlns:styles="com.atensys.imake.draw.styles.*"
+				xmlns:display="flash.display.*">
+	<mx:Style source="css/Fonts.css"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.skins.halo.ButtonBarButtonSkin;
+			import com.atensys.imake.draw.layers.PreviewLayerIR;
+
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			[Bindable]
+			public var layerData:ArrayCollection=new ArrayCollection();
+
+			protected function applicationComplete(event:FlexEvent):void {
+				productChooser.getPopupList().selectedIndex=0;
+				productChooser.getPopupList().selectFirstProduct();
+				zoom.zoomSlider.value=101;
+			}
+		]]>
+	</mx:Script>
+	<draw:ApplicationToolBar width="100%"
+							 id="toolbar"/>
+
+	<mx:HBox id="rootSplit"
+			 width="100%"
+			 height="100%">
+		<mx:VBox>
+			<draw:Pallete id="pallete"
+						  creationComplete="pallete.addColorsEvents()"/>
+			<draw:ProductChooser id="productChooser"/>
+
+			<mx:Panel title="Parts"
+					  width="{pallete.width}"
+					  height="100%"
+					  backgroundAlpha="0.2">
+				<mx:TileList width="60"
+							 height="100%"
+							 maxColumns="1"
+							 id="productParts"
+							 itemRenderer="com.atensys.imake.draw.colors.PartRenderer"
+							 backgroundAlpha="0.2"
+							 change="{desktop.partChanged(event)}"/>
+			</mx:Panel>
+		</mx:VBox>
+		<draw:DrawDesktop width="100%"
+						  height="100%"
+						  id="desktop"
+						  backgroundAlpha="0.2"
+						  verticalAlign="middle"
+						  horizontalAlign="center"
+						  horizontalScrollPolicy="auto"
+						  verticalScrollPolicy="auto">
+		</draw:DrawDesktop>
+		<mx:VBox height="100%">
+			<mx:Panel backgroundAlpha="0.5"
+					  id="colorSwatchesPanel"
+					  title="Colors">
+				<colors:Swatches id="colorsPanel"
+								 colors="{pallete.getColors()}">
+				</colors:Swatches>
+			</mx:Panel>
+			<mx:Panel backgroundAlpha="0.5"
+					  title="Product Colors"
+					  width="{colorSwatchesPanel.width}">
+				<colors:ProductColorSwatches id="productColorsPanel">
+				</colors:ProductColorSwatches>
+			</mx:Panel>
+			<draw:ZoomSlider id="zoom"/>
+			<layers:LayersView id = "layersView" width="{colorSwatchesPanel.width}" />
+		</mx:VBox>
+	</mx:HBox>
+	<mx:Array id="brushes">
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/brush_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/brush_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/brush_3.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/dry_brush_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/dry_brush_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/chalk_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/chalk_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/chalk_3.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/oil_brush_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/oil_brush_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/oil_brush_3.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/oil_brush_4.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/oil_brush_5.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/oil_brush_6.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/oil_brush_7.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/oil_brush_8.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/air_brush_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/air_brush_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/air_brush_3.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/air_brush_4.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/air_brush_5.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/circle.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/ellipse.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/thin_ellipse.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/diamond.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/star_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/star_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/star_3.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/hexagon.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/square.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/moon.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/triangle.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/leaf_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/leaf_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/leaf_3.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/leaf_4.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/heart.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/club.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/spade.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/diamond_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/diamond_icon.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/star_icon_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/star_icon_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/star_icon_3.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/hexagon_icon.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/square_icon.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/moon_icon.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/triangle_icon.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/spiral.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/snowflake.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/ornament.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/wheel.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/jing-jang.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/circle_icon.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/spatter.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/radioactive.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/flora_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/flora_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/flora_3.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/flora_4.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/flora_5.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/flora_6.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/flora_7.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/flora_8.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/cube.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/cube_invert.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/cat.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/planet_1.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/planet_2.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/ball.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/balls.png')"/>
+		<mx:Object label=""
+				   icon="@Embed('assets/brushes/drops.png')"/>
+	</mx:Array>
+</mx:Application>
